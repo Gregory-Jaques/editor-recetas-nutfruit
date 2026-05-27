@@ -1,0 +1,61 @@
+node_modules/
+out/
+media/video/
+media/audio/
+media/images/
+dist/
+.DS_Store
+
+# Archivos de video y audio (pesados — cada uno los pone en su máquina)
+*.mp4
+*.webm
+*.mov
+*.gif
+*.mp3
+*.wav
+*.aac
+*.ogg
+*.m4a
+
+# Carpeta de assets originales de edición (no van al repo)
+assets/
+
+# Excepción: fuentes tipográficas SÍ van al repo
+!public/assets/nutfruit-recetas/*.ttf
+!public/assets/nutfruit-recetas/*.woff
+!public/assets/nutfruit-recetas/*.woff2
+
+# Archivos temporales y carpetas de trabajo
+tmp/
+temp-unpack/
+temp-unpack-docx.zip
+*.zip
+
+# Whisper.cpp — binarios grandes (cada uno instala en su máquina)
+whisper.cpp/*.exe
+whisper.cpp/*.dll
+whisper.cpp/*.bin
+
+# Agent configs (created by skills installer for other AI tools)
+.codebuddy/
+.commandcode/
+.continue/
+.crush/
+.factory/
+.goose/
+.junie/
+.kilocode/
+.kiro/
+.kode/
+.mcpjam/
+.mux/
+.neovate/
+.openhands/
+.pi/
+.pochi/
+.qoder/
+.qwen/
+.roo/
+.trae/
+.windsurf/
+.zencoder/
