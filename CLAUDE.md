@@ -6,6 +6,18 @@ Cuando alguien del equipo abra este proyecto, responde siempre en español.
 
 ---
 
+## 🎨 Skills de diseño — USO OBLIGATORIO
+
+Cuando se pida cualquier cosa relacionada con diseño visual — crear nuevos componentes visuales, rediseñar pantallas existentes, proponer paletas de color, mejorar animaciones, ajustar tipografía, espaciado, jerarquía visual o cualquier mejora estética — **SIEMPRE** se deben aplicar las tres skills de diseño instaladas, sin excepción:
+
+- **`emil-design-eng`** — filosofía de polish de UI, micro-detalles que hacen que algo se sienta premium
+- **`impeccable`** — estándares de calidad visual, jerarquía, spacing, motion
+- **`high-end-visual-design`** / **`design-taste-frontend`** / **`stitch-design-taste`** — criterio estético de alto nivel
+
+> ⚠️ No es opcional. Si hay una decisión de diseño involucrada, estas skills se consultan primero. El objetivo es que cada pantalla que construyamos para Filipinas y los países del Sudeste Asiático tenga una calidad visual superior a la versión Latam.
+
+---
+
 ## Configuración inicial (solo la primera vez)
 
 Antes de hacer cualquier cosa, verifica si existe la carpeta `node_modules/`. Si no existe, instala automáticamente sin preguntar:
