@@ -1,13 +1,49 @@
 import React, {useEffect, useState} from "react";
 import {staticFile, delayRender, continueRender} from "remotion";
 
-// ─── Brand colors ─────────────────────────────────────────────────────────────
+// ─── Brand colors (México — default) ─────────────────────────────────────────
 export const C = {
   red:        "#d10f2a",
   green:      "#296239",
   greenDark:  "#265531",
   white:      "#ffffff",
 } as const;
+
+// ─── Country color system ─────────────────────────────────────────────────────
+export type ColorScheme = {
+  accent: string;  // pill, badge, accent bar, dots  → reemplaza C.red
+  dark:   string;  // fondo de tarjetas y pantallas  → reemplaza C.greenDark
+  white:  string;  // color de texto
+};
+
+export type Country =
+  | "mexico"
+  | "chile"
+  | "argentina"
+  | "brasil"
+  | "latam"
+  | "filipinas";
+
+export const COUNTRY_COLORS: Record<Country, ColorScheme> = {
+  mexico:    { accent: "#d10f2a", dark: "#265531", white: "#ffffff" },
+  chile:     { accent: "#e60000", dark: "#001A5C", white: "#ffffff" },
+  argentina: { accent: "#ffaf00", dark: "#0E3280", white: "#ffffff" },
+  brasil:    { accent: "#f3b212", dark: "#006847", white: "#ffffff" },
+  latam:     { accent: "#f3b212", dark: "#0033a0", white: "#ffffff" },
+  filipinas: { accent: "#2C35CB", dark: "#0D1850", white: "#ffffff" },
+};
+
+// Context — default México, backward compatible (composiciones existentes no necesitan cambios)
+export const ColorCtx = React.createContext<ColorScheme>(COUNTRY_COLORS.mexico);
+
+export const CountryTheme: React.FC<{country: Country; children: React.ReactNode}> = ({
+  country,
+  children,
+}) => (
+  <ColorCtx.Provider value={COUNTRY_COLORS[country]}>
+    {children}
+  </ColorCtx.Provider>
+);
 
 // ─── Font family ──────────────────────────────────────────────────────────────
 export const FONT = "AsapCondensedNR";

@@ -6,7 +6,7 @@ import {
   interpolate,
   spring,
 } from "remotion";
-import {C, FONT, useNRFonts} from "./shared";
+import {ColorCtx, FONT, useNRFonts} from "./shared";
 
 export interface StepCardProps {
   stepNumber?:      number;
@@ -26,6 +26,7 @@ export const StepCard: React.FC<StepCardProps> = (raw) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const {ready} = useNRFonts();
+  const colors  = React.useContext(ColorCtx);
 
   const isRight  = corner.includes("Right");
   const isBottom = corner.includes("bottom");
@@ -76,7 +77,7 @@ export const StepCard: React.FC<StepCardProps> = (raw) => {
           opacity: badgeOpa,
           transform: `scale(${badgeScale})`,
           transformOrigin: isRight ? "right bottom" : "left bottom",
-          background: C.red,
+          background: colors.accent,
           borderRadius: 8,
           padding: "7px 28px",
           marginBottom: -2,
@@ -90,7 +91,7 @@ export const StepCard: React.FC<StepCardProps> = (raw) => {
             fontFamily: `'${FONT}', sans-serif`,
             fontWeight: 900,
             fontSize: 36,
-            color: C.white,
+            color: colors.white,
             letterSpacing: 3,
             textTransform: "uppercase" as const,
             lineHeight: 1,
@@ -101,11 +102,11 @@ export const StepCard: React.FC<StepCardProps> = (raw) => {
 
         {/* card body */}
         <div style={{
-          background: C.greenDark,
+          background: colors.dark,
           borderRadius: 12,
           padding: "18px 28px 22px",
           boxShadow: "0 10px 36px rgba(0,0,0,0.6)",
-          borderTop: `3px solid ${C.red}`,
+          borderTop: `3px solid ${colors.accent}`,
           minWidth: 300,
           maxWidth: 420,
         }}>
@@ -116,7 +117,7 @@ export const StepCard: React.FC<StepCardProps> = (raw) => {
                 fontFamily: `'${FONT}', sans-serif`,
                 fontWeight: 900,
                 fontSize: 52,
-                color: C.white,
+                color: colors.white,
                 letterSpacing: 1,
                 textTransform: "uppercase" as const,
                 lineHeight: 1.1,

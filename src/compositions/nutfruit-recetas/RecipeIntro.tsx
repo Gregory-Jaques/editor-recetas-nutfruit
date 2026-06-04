@@ -6,7 +6,7 @@ import {
   interpolate,
   spring,
 } from "remotion";
-import {C, FONT, useNRFonts} from "./shared";
+import {ColorCtx, FONT, useNRFonts} from "./shared";
 
 export interface RecipeIntroProps {
   line1?:    string;
@@ -96,6 +96,7 @@ export const RecipeIntro: React.FC<RecipeIntroProps> = (raw) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const {ready} = useNRFonts();
+  const colors  = React.useContext(ColorCtx);
 
   // exit
   const EXIT = 105;
@@ -141,7 +142,7 @@ export const RecipeIntro: React.FC<RecipeIntroProps> = (raw) => {
         <div style={{
           width: 540,
           height: 4,
-          background: C.red,
+          background: colors.accent,
           transformOrigin: "left center",
           transform: `scaleX(${barScaleX})`,
           marginBottom: 8,
@@ -153,7 +154,7 @@ export const RecipeIntro: React.FC<RecipeIntroProps> = (raw) => {
           startFrame={4}
           wordStagger={3}
           fontSize={96}
-          color={C.white}
+          color={colors.white}
           frame={frame}
           fps={fps}
           shadow={shadow}
@@ -164,7 +165,7 @@ export const RecipeIntro: React.FC<RecipeIntroProps> = (raw) => {
           position: "relative",
           transform: `scaleX(${pillScaleX})`,
           transformOrigin: "center",
-          background: C.red,
+          background: colors.accent,
           borderRadius: 12,
           padding: "12px 48px",
           marginTop: 4,
@@ -176,7 +177,7 @@ export const RecipeIntro: React.FC<RecipeIntroProps> = (raw) => {
             fontFamily: `'${FONT}', sans-serif`,
             fontWeight: 900,
             fontSize: 96,
-            color: C.white,
+            color: colors.white,
             letterSpacing: 2,
             lineHeight: 1,
             textTransform: "uppercase" as const,

@@ -6,7 +6,7 @@ import {
   interpolate,
   spring,
 } from "remotion";
-import {C, FONT, useNRFonts, WavyLine} from "./shared";
+import {ColorCtx, FONT, useNRFonts, WavyLine} from "./shared";
 
 export interface OutroTextProps {
   line1?:    string;
@@ -32,6 +32,7 @@ export const OutroText: React.FC<OutroTextProps> = (raw) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const {ready} = useNRFonts();
+  const colors  = React.useContext(ColorCtx);
 
   const EXIT = 125;
   const fade = interpolate(frame, [EXIT, EXIT + 20], [1, 0], {
@@ -90,7 +91,7 @@ export const OutroText: React.FC<OutroTextProps> = (raw) => {
               fontFamily: `'${FONT}', sans-serif`,
               fontWeight: 900,
               fontSize: FS,
-              color: C.white,
+              color: colors.white,
               letterSpacing: -1,
               textTransform: "uppercase" as const,
               lineHeight: 1,
@@ -105,7 +106,7 @@ export const OutroText: React.FC<OutroTextProps> = (raw) => {
         <div
           style={{
             transform: `translateY(${pillY}px)`,
-            background: C.red,
+            background: colors.accent,
             borderRadius: 14,
             padding: "6px 52px 10px",
             marginTop: -4,
@@ -117,7 +118,7 @@ export const OutroText: React.FC<OutroTextProps> = (raw) => {
               fontFamily: `'${FONT}', sans-serif`,
               fontWeight: 900,
               fontSize: FS,
-              color: C.white,
+              color: colors.white,
               letterSpacing: -1,
               textTransform: "uppercase" as const,
               lineHeight: 1,
@@ -130,7 +131,7 @@ export const OutroText: React.FC<OutroTextProps> = (raw) => {
 
         {/* wavy line */}
         <div style={{marginTop: 20, marginBottom: 14, alignSelf: "flex-start"}}>
-          <WavyLine color={C.white} width={500} strokeWidth={4} drawProgress={waveDraw} />
+          <WavyLine color={colors.white} width={500} strokeWidth={4} drawProgress={waveDraw} />
         </div>
 
         {/* hashtag: clip reveal */}
@@ -141,7 +142,7 @@ export const OutroText: React.FC<OutroTextProps> = (raw) => {
               fontFamily: `'${FONT}', sans-serif`,
               fontWeight: 800,
               fontSize: 50,
-              color: C.white,
+              color: colors.white,
               letterSpacing: 1,
               textShadow: shadow,
             }}

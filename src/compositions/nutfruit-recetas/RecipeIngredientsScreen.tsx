@@ -6,7 +6,7 @@ import {
   interpolate,
   spring,
 } from "remotion";
-import {C, FONT, useNRFonts, NRIcon} from "./shared";
+import {ColorCtx, FONT, useNRFonts, NRIcon} from "./shared";
 
 export interface RecipeIngredientsScreenProps {
   recipeName?:      string;
@@ -45,6 +45,7 @@ export const RecipeIngredientsScreen: React.FC<RecipeIngredientsScreenProps> = (
   const frame              = useCurrentFrame();
   const {fps, durationInFrames} = useVideoConfig();
   const {ready}            = useNRFonts();
+  const colors             = React.useContext(ColorCtx);
 
   const n    = ingredients.length;
   const half = Math.ceil(n / 2);
@@ -99,7 +100,7 @@ export const RecipeIngredientsScreen: React.FC<RecipeIngredientsScreenProps> = (
     extrapolateLeft: "clamp", extrapolateRight: "clamp",
   });
 
-  if (!ready) return <AbsoluteFill style={{background: C.greenDark, opacity: globalOpa}} />;
+  if (!ready) return <AbsoluteFill style={{background: colors.dark, opacity: globalOpa}} />;
 
   // Ingredient row renderer
   const ingRow = (item: {name: string; amount?: string}, gi: number) => {
@@ -118,20 +119,20 @@ export const RecipeIngredientsScreen: React.FC<RecipeIngredientsScreenProps> = (
           clipPath: `inset(0 0 0 ${itemClip}%)`,
         }}
       >
-        <div style={{width: 8, height: 8, borderRadius: "50%", background: C.red, flexShrink: 0}} />
+        <div style={{width: 8, height: 8, borderRadius: "50%", background: colors.accent, flexShrink: 0}} />
         <span style={{
           fontFamily: `'${FONT}', sans-serif`,
           fontWeight: 600, fontSize: 38,
-          color: C.white, flex: 1, lineHeight: 1.2,
+          color: colors.white, flex: 1, lineHeight: 1.2,
         }}>
           {item.name}
         </span>
         {item.amount && (
           <div style={{
             transform: `scale(${amtScale})`, transformOrigin: "right center",
-            background: C.red, borderRadius: 6, padding: "4px 16px",
+            background: colors.accent, borderRadius: 6, padding: "4px 16px",
             fontFamily: `'${FONT}', sans-serif`,
-            fontWeight: 800, fontSize: 28, color: C.white, flexShrink: 0,
+            fontWeight: 800, fontSize: 28, color: colors.white, flexShrink: 0,
           }}>
             {item.amount}
           </div>
@@ -146,13 +147,13 @@ export const RecipeIngredientsScreen: React.FC<RecipeIngredientsScreenProps> = (
 
       {/* Background */}
       <AbsoluteFill style={{
-        background: C.greenDark,
+        background: colors.dark,
         overflow: "hidden",
       }}>
         {/* Left red accent bar */}
         <div style={{
           position: "absolute", left: 0, top: 0, bottom: 0, width: 6,
-          background: C.red, opacity: contentFade,
+          background: colors.accent, opacity: contentFade,
         }} />
 
         {/* Watermark icon */}
@@ -160,7 +161,7 @@ export const RecipeIngredientsScreen: React.FC<RecipeIngredientsScreenProps> = (
           position: "absolute", right: 56, top: 44,
           opacity: 0.055 * contentFade, pointerEvents: "none",
         }}>
-          <NRIcon size={310} color={C.white} />
+          <NRIcon size={310} color={colors.white} />
         </div>
 
 
@@ -184,7 +185,7 @@ export const RecipeIngredientsScreen: React.FC<RecipeIngredientsScreenProps> = (
               marginBottom: 32, opacity: brandOpa,
             }}>
               <div style={{transform: `scale(${iconScale})`, transformOrigin: "center"}}>
-                <NRIcon size={34} color={C.red} />
+                <NRIcon size={34} color={colors.accent} />
               </div>
               <span style={{
                 fontFamily: `'${FONT}', sans-serif`,
@@ -206,7 +207,7 @@ export const RecipeIngredientsScreen: React.FC<RecipeIngredientsScreenProps> = (
                     transform: `translateY(${ty}%)`,
                     fontFamily: `'${FONT}', sans-serif`,
                     fontWeight: 900, fontSize: 96,
-                    color: C.white, letterSpacing: -1, lineHeight: 1,
+                    color: colors.white, letterSpacing: -1, lineHeight: 1,
                     textTransform: "uppercase" as const,
                   }}>
                     {word}
@@ -219,7 +220,7 @@ export const RecipeIngredientsScreen: React.FC<RecipeIngredientsScreenProps> = (
             {recipeVariant && (
               <div style={{
                 transform: `scaleX(${pillScaleX})`, transformOrigin: "left center",
-                background: C.red, borderRadius: 8,
+                background: colors.accent, borderRadius: 8,
                 padding: "8px 28px", marginTop: 8, marginBottom: 24,
                 boxShadow: "0 6px 28px rgba(0,0,0,0.5)",
               }}>
@@ -227,7 +228,7 @@ export const RecipeIngredientsScreen: React.FC<RecipeIngredientsScreenProps> = (
                   opacity: pillTextOpa,
                   fontFamily: `'${FONT}', sans-serif`,
                   fontWeight: 900, fontSize: 52,
-                  color: C.white, letterSpacing: 3,
+                  color: colors.white, letterSpacing: 3,
                   textTransform: "uppercase" as const,
                   lineHeight: 1.15, display: "block", whiteSpace: "normal",
                 }}>
@@ -252,7 +253,7 @@ export const RecipeIngredientsScreen: React.FC<RecipeIngredientsScreenProps> = (
           {/* ── CENTER: Vertical rule ── */}
           <div style={{
             width: 3, height: 490, flexShrink: 0,
-            background: `linear-gradient(to bottom, transparent, ${C.red} 12%, ${C.red} 88%, transparent)`,
+            background: `linear-gradient(to bottom, transparent, ${colors.accent} 12%, ${colors.accent} 88%, transparent)`,
             transformOrigin: "top center",
             transform: `scaleY(${ruleScaleY})`,
             opacity: contentFade,
@@ -264,7 +265,7 @@ export const RecipeIngredientsScreen: React.FC<RecipeIngredientsScreenProps> = (
             <div style={{
               fontFamily: `'${FONT}', sans-serif`,
               fontWeight: 800, fontSize: 28,
-              color: C.red, letterSpacing: 6,
+              color: colors.accent, letterSpacing: 6,
               textTransform: "uppercase" as const,
               marginBottom: 24,
               opacity: headOpa * contentFade,

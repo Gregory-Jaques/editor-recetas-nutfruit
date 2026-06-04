@@ -309,15 +309,34 @@ const OUTRO_FROM = FINAL_FROM;
 
 La paleta cambia según el país de la receta. Siempre preguntar antes de crear el video.
 
-| País | Colores |
-|---|---|
-| **México** | `#d10f2a` (rojo), `#ffffff`, `#265531` (verde oscuro) |
-| **Chile** | `#0034a6` (azul), `#e60000` (rojo), `#ffffff` |
-| **Argentina** | `#7dc2eb` (celeste), `#ffaf00` (amarillo), `#ffffff` |
-| **Brasil** | `#9cb535` (verde), `#006847` (verde oscuro), `#bb552e` (naranja), `#f3b212` (amarillo) |
-| **Latam** | `#f3b212` (amarillo), `#d04c51` (rojo), `#0033a0` (azul), `#8ec2e9` (celeste), `#006847` (verde) |
+| País | `accent` (pill / badge / barra) | `dark` (fondo de tarjetas) |
+|---|---|---|
+| **México** | `#d10f2a` (rojo) | `#265531` (verde oscuro) |
+| **Chile** | `#e60000` (rojo) | `#001A5C` (azul oscuro) |
+| **Argentina** | `#ffaf00` (amarillo) | `#0E3280` (azul oscuro) |
+| **Brasil** | `#f3b212` (amarillo/dorado) | `#006847` (verde oscuro) |
+| **Latam** | `#f3b212` (amarillo/dorado) | `#0033a0` (azul oscuro) |
+| **Filipinas** | `#2C35CB` (azul) | `#0D1850` (azul marino oscuro) |
 
-Los colores están definidos en `src/compositions/nutfruit-recetas/shared.tsx`. Al crear un video para un país distinto a México, actualizar `C.red` y los colores del pill/acento con los valores correspondientes, o crear una variante del componente.
+### Cómo se aplican los colores — `CountryTheme`
+
+Los colores ya NO se cambian manualmente. El sistema usa React Context. Para que una composición use la paleta correcta, envuelve el contenido con `<CountryTheme>`:
+
+```tsx
+import {CountryTheme} from "./nutfruit-recetas/shared";
+
+export const MiRecetaYouTube: React.FC = () => (
+  <CountryTheme country="argentina">
+    <AbsoluteFill>
+      {/* todo el contenido aquí — todos los componentes heredan los colores automáticamente */}
+    </AbsoluteFill>
+  </CountryTheme>
+);
+```
+
+**Países válidos:** `"mexico"` · `"chile"` · `"argentina"` · `"brasil"` · `"latam"` · `"filipinas"`
+
+Las composiciones existentes (Chilaquiles, Flautas, Capirotada, TresLeches) son todas México y no necesitan `<CountryTheme>` — usan los colores de México por defecto.
 
 La fuente **Asap Condensed Black** es igual para todos los países — está incluida en el repo en `public/assets/nutfruit-recetas/`.
 
