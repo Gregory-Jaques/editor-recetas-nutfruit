@@ -309,14 +309,16 @@ const OUTRO_FROM = FINAL_FROM;
 
 La paleta cambia según el país de la receta. Siempre preguntar antes de crear el video.
 
-| País | `accent` (pill / badge / barra) | `dark` (fondo de tarjetas) |
-|---|---|---|
-| **México** | `#d10f2a` (rojo) | `#265531` (verde oscuro) |
-| **Chile** | `#e60000` (rojo) | `#001A5C` (azul oscuro) |
-| **Argentina** | `#ffaf00` (amarillo) | `#0E3280` (azul oscuro) |
-| **Brasil** | `#f3b212` (amarillo/dorado) | `#006847` (verde oscuro) |
-| **Latam** | `#f3b212` (amarillo/dorado) | `#0033a0` (azul oscuro) |
-| **Filipinas** | `#2C35CB` (azul) | `#0D1850` (azul marino oscuro) |
+| País | `accent` (pill / badge / barra) | `dark` (fondo de tarjetas) | Idioma |
+|---|---|---|---|
+| **México** | `#d10f2a` (rojo) | `#265531` (verde oscuro) | Español |
+| **Chile** | `#e60000` (rojo) | `#001A5C` (azul oscuro) | Español |
+| **Argentina** | `#ffaf00` (amarillo) | `#0E3280` (azul oscuro) | Español |
+| **Brasil** | `#f3b212` (amarillo/dorado) | `#006847` (verde oscuro) | Español |
+| **Latam** | `#f3b212` (amarillo/dorado) | `#0033a0` (azul oscuro) | Español |
+| **Filipinas** | `#2C35CB` (azul) | `#0D1850` (azul marino oscuro) | **Inglés** |
+
+> ⚠️ **Regla de idioma:** Los países hispanohablantes (México, Chile, Argentina, Brasil, Latam) usan **español** en todos los textos: tarjetas de pasos, pantalla de ingredientes, scripts de voz en off y el outro "¡Buen Provecho!". Filipinas y cualquier país no hispanohablante que se agregue en el futuro usan **inglés**: step cards, ingredients screen, voice-over scripts y el outro "Enjoy your meal!" o similar. Nunca mezclar idiomas dentro de un mismo video.
 
 ### Cómo se aplican los colores — `CountryTheme`
 
