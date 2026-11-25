@@ -30,6 +30,15 @@ import {FlautasYouTube} from "./compositions/FlautasYouTube";
 import {CapirotadaYouTube} from "./compositions/CapirotadaYouTube";
 import {TresLechesYouTube} from "./compositions/TresLechesYouTube";
 import {FlautasVegetalesYouTube} from "./compositions/FlautasVegetalesYouTube";
+import {ChilaquilesLATAMYouTube} from "./compositions/ChilaquilesLATAMYouTube";
+import {BibingkaPHYouTube} from "./compositions/BibingkaPHYouTube";
+import {BikoPHYouTube} from "./compositions/BikoPHYouTube";
+import {KareKaraPHYouTube} from "./compositions/KareKaraPHYouTube";
+import {LumpiangPHYouTube} from "./compositions/LumpiangPHYouTube";
+import {ChickenSatayThaiYouTube} from "./compositions/ChickenSatayThaiYouTube";
+import {KhaoPadSaparodThaiYouTube} from "./compositions/KhaoPadSaparodThaiYouTube";
+import {PandanMilkTeaThaiYouTube} from "./compositions/PandanMilkTeaThaiYouTube";
+import {VeggiePadThaiThaiYouTube} from "./compositions/VeggiePadThaiThaiYouTube";
 import {CacajuVertical} from "./compositions/CacajuVertical";
 import {AvellanasVertical} from "./compositions/AvellanasVertical";
 import {StreamerVertical} from "./compositions/StreamerVertical";
@@ -190,10 +199,106 @@ export const RemotionRoot: React.FC = () => {
         />
       </Folder>
 
+      <Folder name="thai-veggie-pad-thai">
+        <Composition
+          id="thai-veggie-pad-thai"
+          component={VeggiePadThaiThaiYouTube}
+          durationInFrames={1471}
+          fps={25}
+          width={1920}
+          height={1080}
+        />
+      </Folder>
+
+      <Folder name="thai-pandan-milk-tea">
+        <Composition
+          id="thai-pandan-milk-tea"
+          component={PandanMilkTeaThaiYouTube}
+          durationInFrames={1162}
+          fps={25}
+          width={1920}
+          height={1080}
+        />
+      </Folder>
+
+      <Folder name="thai-khao-saparod">
+        <Composition
+          id="thai-khao-saparod"
+          component={KhaoPadSaparodThaiYouTube}
+          durationInFrames={1292}
+          fps={25}
+          width={1920}
+          height={1080}
+        />
+      </Folder>
+
+      <Folder name="thai-chicken-satay">
+        <Composition
+          id="thai-chicken-satay"
+          component={ChickenSatayThaiYouTube}
+          durationInFrames={1609}
+          fps={25}
+          width={1920}
+          height={1080}
+        />
+      </Folder>
+
+      <Folder name="ph-lumpiang">
+        <Composition
+          id="ph-lumpiang"
+          component={LumpiangPHYouTube}
+          durationInFrames={1641}
+          fps={25}
+          width={1920}
+          height={1080}
+        />
+      </Folder>
+
+      <Folder name="ph-kare-kare">
+        <Composition
+          id="ph-kare-kara"
+          component={KareKaraPHYouTube}
+          durationInFrames={1630}
+          fps={25}
+          width={1920}
+          height={1080}
+        />
+      </Folder>
+
+      <Folder name="ph-biko">
+        <Composition
+          id="ph-biko"
+          component={BikoPHYouTube}
+          durationInFrames={1075}
+          fps={25}
+          width={1920}
+          height={1080}
+        />
+      </Folder>
+
+      <Folder name="ph-bibingka">
+        <Composition
+          id="ph-bibingka"
+          component={BibingkaPHYouTube}
+          durationInFrames={1708}
+          fps={25}
+          width={1920}
+          height={1080}
+        />
+      </Folder>
+
       <Folder name="ChilaquilesYT">
         <Composition
           id="ChilaquilesYT"
           component={ChilaquilesYouTube}
+          durationInFrames={1241}
+          fps={25}
+          width={1920}
+          height={1080}
+        />
+        <Composition
+          id="ChilaquilesPhilippinesYT"
+          component={ChilaquilesLATAMYouTube}
           durationInFrames={1241}
           fps={25}
           width={1920}

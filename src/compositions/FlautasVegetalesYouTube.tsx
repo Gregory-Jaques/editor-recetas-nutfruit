@@ -13,13 +13,13 @@ import {OutroText} from "./nutfruit-recetas/OutroText";
 //  whoosh-in/out.mp3  →  1.56s =   39 frames
 //  flautas_16x9.mp4   → 57.40s = 1435 frames @ 25fps
 
-const VIDEO_SRC  = staticFile("assets/nutfruit-recetas/receta-test/flautas_16x9.mp4");
-const WHOOSH_IN  = staticFile("assets/nutfruit-recetas/receta-test/whoosh-in.mp3");
-const WHOOSH_OUT = staticFile("assets/nutfruit-recetas/receta-test/whoosh-out.mp3");
-const MUSIC_BG   = staticFile("assets/nutfruit-recetas/receta-test/musica fondo.mp3");
-const INTRO_SRC  = staticFile("assets/nutfruit-recetas/receta-test/intro.mp3");
-const INGR_VOICE = staticFile("assets/nutfruit-recetas/receta-test/ingredientes.mp3");
-const PASOS_SRC  = staticFile("assets/nutfruit-recetas/receta-test/pasos.mp3");
+const VIDEO_SRC  = staticFile("assets/nutfruit-recetas/flautas-con-nueces/flautas_16x9.mp4");
+const WHOOSH_IN  = staticFile("assets/nutfruit-recetas/flautas-con-nueces/whoosh-in.mp3");
+const WHOOSH_OUT = staticFile("assets/nutfruit-recetas/flautas-con-nueces/whoosh-out.mp3");
+const MUSIC_BG   = staticFile("assets/nutfruit-recetas/flautas-con-nueces/musica fondo.mp3");
+const INTRO_SRC  = staticFile("assets/nutfruit-recetas/flautas-con-nueces/intro.mp3");
+const INGR_VOICE = staticFile("assets/nutfruit-recetas/flautas-con-nueces/ingredientes.mp3");
+const PASOS_SRC  = staticFile("assets/nutfruit-recetas/flautas-con-nueces/pasos.mp3");
 
 const VOL_VIDEO  = 0.15;
 const VOL_MUSIC  = 0.10;
@@ -37,7 +37,6 @@ const PASOS_FROM    = INGR_FROM + INGR_DUR;         // 260
 const INTRO_DUR      = 115;
 const INGR_VOICE_DUR = 33;
 const PASOS_DUR      = 1155;
-const PASOS_END      = PASOS_FROM + PASOS_DUR;      // 1415
 
 // ── StepCards ────────────────────────────────────────────────────────────────
 // frame composición = segundo_video × 25 + 135
@@ -126,7 +125,7 @@ export const FlautasVegetalesYouTube: React.FC = () => {
       <Sequence from={0} durationInFrames={CUT_FRAME}>
         <RecipeIntro
           line1="FLAUTAS VEGETALES"
-          line2="CON LENTEJAS Y NUECES"
+          line2="CON NUECES"
           position="center"
         />
       </Sequence>
@@ -147,7 +146,7 @@ export const FlautasVegetalesYouTube: React.FC = () => {
       <Sequence from={INGR_FROM} durationInFrames={INGR_DUR}>
         <RecipeIngredientsScreen
           recipeName="FLAUTAS VEGETALES"
-          recipeVariant="CON LENTEJAS Y NUECES"
+          recipeVariant="CON NUECES"
           servings="2 personas"
           time="45 min"
           fadeInDuration={8}
@@ -217,7 +216,7 @@ export const FlautasVegetalesYouTube: React.FC = () => {
           line1="¡BUEN"
           line2="PROVECHO!"
           hashtag="#NutfruitRecetas"
-          cta="Síguenos para más recetas saludables"
+          cta="Más recetas saludables cada semana en Nutfruit"
           position="center"
         />
       </Sequence>

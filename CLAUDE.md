@@ -311,9 +311,44 @@ const OUTRO_FROM = FINAL_FROM;
 - Las esquinas alternan: `"bottomRight"` → `"bottomLeft"` → `"bottomRight"`...
 - La tarjeta del paso N dura hasta que empieza la tarjeta del paso N+1
 
+**Template LATAM** — importar `StepCard`:
 ```tsx
 <StepCard stepNumber={1} stepDescription={"PRIMERA LÍNEA\nSEGUNDA LÍNEA"} corner="bottomRight" />
 ```
+
+**Template ASIA** — importar `StepCardPH` (en inglés, 3 esquinas redondas + 1 recta):
+```tsx
+<StepCardPH stepNumber={1} stepDescription={"FIRST LINE\nSECOND LINE"} corner="bottomRight" />
+```
+
+---
+
+## Templates por región
+
+Hay dos templates visuales. El template se determina **automáticamente** por el campo `template` que tiene cada país en `COUNTRY_COLORS` de `shared.tsx`. Nunca hay que elegir manualmente qué componentes usar — basta con poner el país correcto en `<CountryTheme country="...">`.
+
+| Template | Países | Componentes a importar | Idioma |
+|---|---|---|---|
+| **latam** | mexico, chile, argentina, brasil, latam | `RecipeIntro` · `RecipeIngredientsScreen` · `StepCard` · `OutroText` | Español |
+| **asia** | filipinas *(y otros asiáticos en el futuro)* | `RecipeIntroPH` · `RecipeIngredientsScreenPH` · `StepCardPH` · `OutroTextPH` | Inglés |
+
+### Regla de idioma
+
+- **LATAM** → todo en español: tarjetas de pasos, pantalla de ingredientes, scripts de voz en off, outro "¡Buen Provecho!"
+- **ASIA** → todo en inglés: step cards, ingredients screen, voice-over scripts, outro "Enjoy your meal!"
+
+Nunca mezclar idiomas dentro de un mismo video.
+
+### Diferencias visuales entre templates
+
+| Elemento | LATAM | ASIA (PH) |
+|---|---|---|
+| Panel intro | Sin scallops, gradiente de fondo propio | Panel con borde scalloped (semicírculos), gradiente azul `#1a4ef5 → #00c8ff` |
+| Tarjetas de pasos | Bordes redondeados estándar | 3 esquinas redondeadas + 1 esquina recta (apunta a la esquina de pantalla) |
+| Fondo descripción de paso | `colors.dark` | `#1a75ff` fijo |
+| Fuente títulos | Asap Condensed Black | Thumpa |
+| Fuente cuerpo | Asap Condensed Black | Space Grotesk NR |
+| Outro | Panel semiopaco con texto y wavy line | Solo "ENJOY" (gradiente) + badge "YOUR MEAL!" (3 redondas + 1 recta), fondo transparente |
 
 ---
 
@@ -321,16 +356,17 @@ const OUTRO_FROM = FINAL_FROM;
 
 La paleta cambia según el país de la receta. Siempre preguntar antes de crear el video.
 
-| País | `accent` (pill / badge / barra) | `dark` (fondo de tarjetas) | Idioma |
-|---|---|---|---|
-| **México** | `#d10f2a` (rojo) | `#265531` (verde oscuro) | Español |
-| **Chile** | `#e60000` (rojo) | `#001A5C` (azul oscuro) | Español |
-| **Argentina** | `#ffaf00` (amarillo) | `#0E3280` (azul oscuro) | Español |
-| **Brasil** | `#f3b212` (amarillo/dorado) | `#006847` (verde oscuro) | Español |
-| **Latam** | `#f3b212` (amarillo/dorado) | `#0033a0` (azul oscuro) | Español |
-| **Filipinas** | `#2C35CB` (azul) | `#0D1850` (azul marino oscuro) | **Inglés** |
+| País | Template | `accent` (pill / badge / barra) | `dark` (fondo de tarjetas) | Idioma |
+|---|---|---|---|---|
+| **México** | latam | `#d10f2a` (rojo) | `#265531` (verde oscuro) | Español |
+| **Chile** | latam | `#e60000` (rojo) | `#001A5C` (azul oscuro) | Español |
+| **Argentina** | latam | `#ffaf00` (amarillo) | `#0E3280` (azul oscuro) | Español |
+| **Brasil** | latam | `#f3b212` (amarillo/dorado) | `#006847` (verde oscuro) | Español |
+| **Latam** | latam | `#f3b212` (amarillo/dorado) | `#0033a0` (azul oscuro) | Español |
+| **Filipinas** | asia | `#FF3D20` (naranja) | `#0D1850` (azul marino) | **Inglés** |
+| **Tailandia** | asia | `#ec1d25` (rojo) | `#231e50` (azul noche) | **Inglés** |
 
-> ⚠️ **Regla de idioma:** Los países hispanohablantes (México, Chile, Argentina, Brasil, Latam) usan **español** en todos los textos: tarjetas de pasos, pantalla de ingredientes, scripts de voz en off y el outro "¡Buen Provecho!". Filipinas y cualquier país no hispanohablante que se agregue en el futuro usan **inglés**: step cards, ingredients screen, voice-over scripts y el outro "Enjoy your meal!" o similar. Nunca mezclar idiomas dentro de un mismo video.
+> ℹ️ Para agregar un nuevo país asiático: añadirlo a `Country` type y a `COUNTRY_COLORS` en `shared.tsx` con `template: "asia"` y sus colores de marca. El resto del sistema lo detecta automáticamente.
 
 ### Cómo se aplican los colores — `CountryTheme`
 
@@ -352,7 +388,7 @@ export const MiRecetaYouTube: React.FC = () => (
 
 Las composiciones existentes (Chilaquiles, Flautas, Capirotada, TresLeches) son todas México y no necesitan `<CountryTheme>` — usan los colores de México por defecto.
 
-La fuente **Asap Condensed Black** es igual para todos los países — está incluida en el repo en `public/assets/nutfruit-recetas/`.
+La fuente **Asap Condensed Black** es igual para todos los países LATAM. Los países ASIA usan **Thumpa + Space Grotesk NR** (incluidas en `public/assets/nutfruit-recetas/fonts-filipinas/`).
 
 ---
 
@@ -379,12 +415,22 @@ parseMedia({
 
 Estos videos ya fueron producidos y aprobados por el equipo. **Antes de crear una receta nueva, lee el código de la más parecida** para entender el patrón exacto que se usó. Los assets (mp3, mp4) no están en el repo pero el código está completo.
 
+### Template LATAM
+
 | Composición | Archivo | Pasos | Tipo de audio | Usar como base cuando... |
 |---|---|---|---|---|
 | `ChilaquilesYT` | `ChilaquilesYouTube.tsx` | 4 | `pasos.mp3` único | receta simple con un solo audio de pasos |
 | `FlautasYT` | `FlautasYouTube.tsx` | 5 | `pasos.mp3` único | igual pero con más pasos |
 | `CapirotadaYT` | `CapirotadaYouTube.tsx` | 5 | `pasos.mp3` + `final.mp3` | hay voz final separada del outro |
 | `TresLechesYT` | `TresLechesYouTube.tsx` | 6 | `paso1.mp3`…`paso6.mp3` + `final.mp3` | cada paso tiene su propio audio |
+
+### Template ASIA (PH)
+
+| Composición | Archivo | Pasos | Tipo de audio | Usar como base cuando... |
+|---|---|---|---|---|
+| `ChilaquilesLATAMYT` | `ChilaquilesLATAMYouTube.tsx` | 4 | `pasos.mp3` único | **primera receta ASIA — referencia canónica del template** |
+
+> ⚠️ Para cualquier receta de Filipinas u otro país ASIA, siempre copiar `ChilaquilesLATAMYouTube.tsx` como base. Usa `RecipeIntroPH`, `RecipeIngredientsScreenPH`, `StepCardPH` y `OutroTextPH`. El `CUT_FRAME` de referencia para ASIA es 78 (frame 78 = segundo 3.12 — 25 frames más tarde que LATAM porque el intro PH es más alto).
 
 ---
 
@@ -427,11 +473,15 @@ parseMedia({
 
 ### Paso 5 — Crear la composición
 
-1. Copiar el archivo más parecido de la tabla de recetas existentes
+1. **Elegir la base según el template del país:**
+   - **LATAM** → copiar el archivo LATAM más parecido de la tabla
+   - **ASIA** → copiar siempre `ChilaquilesLATAMYouTube.tsx`
 2. Renombrar a `src/compositions/NombreRecetaYouTube.tsx`
 3. Reemplazar: nombre de receta, ingredientes, textos de pasos, rutas de assets, duraciones medidas en los pasos 3 y 4
-4. Aplicar los colores del país correspondiente
+4. Aplicar los colores del país con `<CountryTheme country="...">` — los componentes correctos ya están en la base copiada
 5. Usar **siempre** `V2_DUR = VIDEO_TOTAL - CUT_FRAME` (fórmula crítica)
+6. **ASIA:** todos los textos en inglés — step cards, ingredientes, outro "Enjoy your meal!"
+   **LATAM:** todos los textos en español — tarjetas, ingredientes, outro "¡Buen Provecho!"
 
 ### Paso 6 — Registrar en Root.tsx
 

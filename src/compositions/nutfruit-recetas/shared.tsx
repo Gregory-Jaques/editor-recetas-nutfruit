@@ -10,10 +10,13 @@ export const C = {
 } as const;
 
 // ─── Country color system ─────────────────────────────────────────────────────
+export type Template = "latam" | "asia";
+
 export type ColorScheme = {
-  accent: string;  // pill, badge, accent bar, dots  → reemplaza C.red
-  dark:   string;  // fondo de tarjetas y pantallas  → reemplaza C.greenDark
-  white:  string;  // color de texto
+  accent:   string;    // pill, badge, accent bar, dots  → reemplaza C.red
+  dark:     string;    // fondo de tarjetas y pantallas  → reemplaza C.greenDark
+  white:    string;    // color de texto
+  template: Template;  // determina qué set de componentes usar
 };
 
 export type Country =
@@ -22,16 +25,24 @@ export type Country =
   | "argentina"
   | "brasil"
   | "latam"
-  | "filipinas";
+  | "filipinas"
+  | "tailandia";
 
 export const COUNTRY_COLORS: Record<Country, ColorScheme> = {
-  mexico:    { accent: "#d10f2a", dark: "#265531", white: "#ffffff" },
-  chile:     { accent: "#e60000", dark: "#001A5C", white: "#ffffff" },
-  argentina: { accent: "#ffaf00", dark: "#0E3280", white: "#ffffff" },
-  brasil:    { accent: "#f3b212", dark: "#006847", white: "#ffffff" },
-  latam:     { accent: "#f3b212", dark: "#0033a0", white: "#ffffff" },
-  filipinas: { accent: "#2C35CB", dark: "#0D1850", white: "#ffffff" },
+  // ── LATAM — usan RecipeIntro / RecipeIngredientsScreen / StepCard / OutroText ──
+  mexico:    { accent: "#d10f2a", dark: "#265531", white: "#ffffff", template: "latam" },
+  chile:     { accent: "#e60000", dark: "#001A5C", white: "#ffffff", template: "latam" },
+  argentina: { accent: "#ffaf00", dark: "#0E3280", white: "#ffffff", template: "latam" },
+  brasil:    { accent: "#f3b212", dark: "#006847", white: "#ffffff", template: "latam" },
+  latam:     { accent: "#f3b212", dark: "#0033a0", white: "#ffffff", template: "latam" },
+  // ── ASIA — usan RecipeIntroPH / RecipeIngredientsScreenPH / StepCardPH / OutroTextPH ──
+  filipinas: { accent: "#FF3D20", dark: "#1a4ef5", white: "#ffffff", template: "asia" },
+  tailandia: { accent: "#ec1d25", dark: "#231e50", white: "#ffffff", template: "asia" },
 };
+
+/** Devuelve true si el país usa el template Asia (PH) */
+export const isAsia = (country: Country): boolean =>
+  COUNTRY_COLORS[country].template === "asia";
 
 // Context — default México, backward compatible (composiciones existentes no necesitan cambios)
 export const ColorCtx = React.createContext<ColorScheme>(COUNTRY_COLORS.mexico);
@@ -45,8 +56,12 @@ export const CountryTheme: React.FC<{country: Country; children: React.ReactNode
   </ColorCtx.Provider>
 );
 
-// ─── Font family ──────────────────────────────────────────────────────────────
-export const FONT = "AsapCondensedNR";
+// ─── Font families ────────────────────────────────────────────────────────────
+export const FONT = "AsapCondensedNR";          // LATAM — todos los textos
+
+// Philippines / SE Asia
+export const FONT_PH_DISPLAY = "Thumpa";        // Solo títulos (display)
+export const FONT_PH         = "SpaceGroteskNR"; // Todos los demás textos
 
 // ─── Font loader hook ─────────────────────────────────────────────────────────
 export function useNRFonts() {
@@ -84,6 +99,62 @@ export function useNRFonts() {
     }
     document.fonts
       .load(`900 72px "${FONT}"`)
+      .then(() => { setReady(true); continueRender(handle); })
+      .catch(() => { setReady(true); continueRender(handle); });
+  }, [handle]);
+
+  return {ready};
+}
+
+// ─── Font loader hook — Philippines / SE Asia ────────────────────────────────
+// Fuentes en: public/assets/nutfruit-recetas/fonts-filipinas/
+// Thumpa  → títulos (display)
+// SpaceGroteskNR → todos los demás textos
+export function usePHFonts() {
+  const [ready, setReady] = useState(false);
+  const [handle] = useState(() => delayRender("Loading PH fonts"));
+
+  useEffect(() => {
+    if (typeof document === "undefined") {
+      continueRender(handle);
+      setReady(true);
+      return;
+    }
+    if (!document.getElementById("ph-font-face")) {
+      const base = "assets/nutfruit-recetas/fonts-filipinas";
+      const spaceWeights: [string, number][] = [
+        ["SpaceGrotesk-Light",    300],
+        ["SpaceGrotesk-Regular",  400],
+        ["SpaceGrotesk-Medium",   500],
+        ["SpaceGrotesk-SemiBold", 600],
+        ["SpaceGrotesk-Bold",     700],
+      ];
+      const style = document.createElement("style");
+      style.id = "ph-font-face";
+      style.textContent = [
+        // SpaceGrotesk — cuerpo
+        ...spaceWeights.map(([file, w]) => `
+          @font-face {
+            font-family: '${FONT_PH}';
+            src: url('${staticFile(`${base}/${file}.ttf`)}') format('truetype');
+            font-weight: ${w};
+            font-style: normal;
+          }
+        `),
+        // Thumpa — display (pesos 400 y 900 apuntan al mismo archivo)
+        `@font-face {
+          font-family: '${FONT_PH_DISPLAY}';
+          src: url('${staticFile(`${base}/Thumpa.otf`)}') format('opentype');
+          font-weight: 400 900;
+          font-style: normal;
+        }`,
+      ].join("");
+      document.head.appendChild(style);
+    }
+    Promise.all([
+      document.fonts.load(`700 72px "${FONT_PH}"`),
+      document.fonts.load(`400 72px "${FONT_PH_DISPLAY}"`),
+    ])
       .then(() => { setReady(true); continueRender(handle); })
       .catch(() => { setReady(true); continueRender(handle); });
   }, [handle]);
